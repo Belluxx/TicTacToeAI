@@ -3,7 +3,9 @@
 
 /**
  * An autonomous agent capable of training and playing
- * against humans or other autonomous entities.
+ * against humans or other agents
+ * @param board The board where the agent will play
+ * @param tag The symbol used by the agent
  * @param expRate Exploration rate
  * @param decayGamma Value of future reward
  * @param learningRate Learning rate
@@ -20,6 +22,14 @@ Agent::Agent(Board *board, char tag, float expRate, float decayGamma, float lear
     this->svPairs = {};
 }
 
+/**
+ * Choose an action based on the agent knowledge
+ * @param fightMode if true, the ai will not try new
+ * unknown actions
+ * @param debugMode if true, extra information about the
+ * decision process will be shown
+ * @return the chosen action coordinates
+ */
 pos Agent::chooseAction(bool fightMode, bool debugMode) {
     pos action;
     pos *availableActions = new pos[board->cellsCount];
@@ -55,6 +65,10 @@ pos Agent::chooseAction(bool fightMode, bool debugMode) {
     return action;
 }
 
+/**
+ * Give the agent a reward or punishment
+ * @param reward the positive or negative reward
+ */
 void Agent::feedReward(float reward) {
     float _reward = reward;
     for (int i = gameStatesSize - 1; i >= 0; i--) {
@@ -72,6 +86,10 @@ void Agent::feedReward(float reward) {
     }
 }
 
+/**
+ * Add a state to the agent for the current game
+ * @param state current state
+ */
 void Agent::addGameState(std::string state) {
     if (gameStatesSize < board->cellsCount) {
         gameStates[gameStatesSize] = std::move(state);
@@ -79,10 +97,17 @@ void Agent::addGameState(std::string state) {
     } else throw std::out_of_range("gameStates array filled.");
 }
 
+/**
+ * Start a new game
+ */
 void Agent::newGame() {
     gameStatesSize = 0;
 }
 
+/**
+ * Print detailed information about the agent
+ * @param full if true, more info will be shown
+ */
 void Agent::debug(bool full) {
     printf("Agent %p [%c]\n", this, tag);
     printf("svPairsSize: %lu\n", svPairs.size());
@@ -95,6 +120,10 @@ void Agent::debug(bool full) {
     }
 }
 
+/**
+ * Saves the agent to a file
+ * @param fileName name of the file
+ */
 void Agent::save(const std::string &fileName) {
     FILE *f;
     f = fopen(fileName.c_str(), "w");
@@ -108,6 +137,10 @@ void Agent::save(const std::string &fileName) {
     fclose(f);
 }
 
+/**
+ * Load the agent from a file
+ * @param fileName name of the file
+ */
 void Agent::load(const std::string &fileName) {
     FILE *f;
     f = fopen(fileName.c_str(), "r");

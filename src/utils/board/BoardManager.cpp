@@ -4,6 +4,12 @@
 
 BoardManager::BoardManager() = default;
 
+/**
+ * Train two agents
+ * @param l The size of the board
+ * @param winStr The number of consecutive symbols needed to win
+ * @param iterations The number of games that the agents will play
+ */
 void BoardManager::train(int l, int winStr, int iterations) {
     makeBoard(l, winStr);
 
@@ -67,6 +73,11 @@ void BoardManager::train(int l, int winStr, int iterations) {
     ai2.save(std::string("ai2_").append(fileName));
 }
 
+/**
+ * Play an AI vs Human game
+ * @param aiFile The name of the ai file
+ * @param debugMode If true, more info will be shown
+ */
 void BoardManager::AiVsHuman(const std::string &aiFile, bool debugMode) {
     makeBoard(aiFile);
     Agent ai = Agent(&board);
@@ -109,6 +120,11 @@ void BoardManager::AiVsHuman(const std::string &aiFile, bool debugMode) {
     } while (opt == 'y');
 }
 
+/**
+ * Play an AI vs AI game
+ * @param ai1File The name of the first ai file
+ * @param ai2File The name of the second ai file
+ */
 void BoardManager::AiVsAi(const std::string &ai1File, const std::string &ai2File) {
     makeBoard(ai1File);
     makeBoard(ai2File);
@@ -155,12 +171,21 @@ void BoardManager::AiVsAi(const std::string &ai1File, const std::string &ai2File
     } while (opt == 'y');
 }
 
+/**
+ * Create a board
+ * @param l Size of the board
+ * @param winStr Number of consecutive symbols needed to win
+ */
 void BoardManager::makeBoard(int l, int winStr) {
     this->board = Board(l, winStr);
 
     this->board.reset();
 }
 
+/**
+ * Create a board
+ * @param fileName name of the agent file
+ */
 void BoardManager::makeBoard(const std::string &fileName) {
     int currL = board.l;
     int currWinStr = board.winStr;
@@ -191,6 +216,10 @@ void BoardManager::makeBoard(const std::string &fileName) {
     }
 }
 
+/**
+ * Pauses the execution
+ * @param seconds Number of seconds to wait
+ */
 void BoardManager::delay(int seconds) {
     std::this_thread::sleep_until(std::chrono::system_clock::now() + std::chrono::seconds(seconds));
 }

@@ -1,5 +1,10 @@
 #include "Board.h"
 
+/**
+ * Create a new board
+ * @param l Size of the board
+ * @param winStr Consecutive symbols needed to win
+ */
 Board::Board(int l, int winStr) {
     this->l = l;
     this->cellsCount = l * l;
@@ -21,6 +26,11 @@ Board::Board(int l, int winStr) {
     this->reset();
 }
 
+/**
+ * Get the state of the game
+ * @return 0 for normal, 1 for X victory, 2 for
+ * O victory, 3 for draw
+ */
 int Board::getGameStatus() {
     // Cerca vittorie orizzontali
     for (int y = 0; y < l; y++) {
@@ -115,6 +125,12 @@ int Board::getGameStatus() {
     return 0;
 }
 
+/**
+ * Perform an action on the board
+ * @param tag tag of who performs the action
+ * @param p position of the action
+ * @return 0 if the action is allowed, 1 if it is not allowed
+ */
 int Board::performAction(char tag, pos p) {
     if ((p.x >= 0 && p.x < l && p.y >= 0 && p.y < l) && (boardData[p.y][p.x] == NONE)) {
         boardData[p.y][p.x] = tag;
@@ -144,6 +160,9 @@ int Board::getAvailableActions(pos *validActions) {
     return actionsCount;
 }
 
+/**
+ * Print the board with coordinates
+ */
 void Board::print() {
     printf("  0 ");
     for (int x = 1; x < l; x++)
@@ -159,6 +178,9 @@ void Board::print() {
     }
 }
 
+/**
+ * Pass to the next turn
+ */
 void Board::nextTurn() {
     turn = turn == X ? O : X;
     movesCount++;
@@ -179,6 +201,13 @@ std::string Board::getStateHash() {
     return hash;
 }
 
+/**
+ * Flattens the board matrix to a string after performing
+ * the action.
+ * @param tag tag of who performs the action
+ * @param p position of the action
+ * @return string that identifies the future state.
+ */
 std::string Board::getStateHash(char tag, pos p) {
     std::string hash;
     int y = 0, x;
@@ -194,6 +223,9 @@ std::string Board::getStateHash(char tag, pos p) {
     return hash;
 }
 
+/**
+ * Clear the board
+ */
 void Board::clearBoard() {
     for (int y = 0; y < l; y++) {
         for (int x = 0; x < l; x++) {
@@ -202,10 +234,17 @@ void Board::clearBoard() {
     }
 }
 
+/**
+ * Print a position
+ * @param p The position
+ */
 void Board::printPos(pos p) {
     printf("(%d, %d)\n", p.x, p.y);
 }
 
+/**
+ * Reset and clear the board
+ */
 void Board::reset() {
     movesCount = 0;
     turn = X;
