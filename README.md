@@ -16,7 +16,7 @@ First of all you need to choose an option:
 > [2] Load AI file to play against another AI\
 > [3] Train new AI
 
-If it is the first time that you run this project then you can either download a pre-trained AI file and choose option 1/2 or train a new one with option 3.
+If it is the first time that you run this project then you can either [download a pre-trained AI file](https://github.com/Belluxx/TicTacToeAI/releases/download/v1.0/pretrained_ai_files.7z) and choose option 1/2 or train a new one with option 3.
 
 To train a new AI you will be asked for some tweaks:
 1) **Board size**: the size of the tictactoe square; 3 means 3x3 square and 4 means 4x4 square.
