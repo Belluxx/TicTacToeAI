@@ -2,12 +2,6 @@
 #include "utils/ai/Agent.h"
 #include "utils/board/BoardManager.h"
 
-void trainAI();
-
-void playAIvHuman();
-
-void playAIvAI();
-
 int main() {
     int opt = 0;
     std::cout << "[1] Load AI file to play against user\n";
@@ -16,63 +10,55 @@ int main() {
     std::cout << "Choose an option: ";
     std::cin >> opt;
 
+    BoardManager bm = BoardManager();
+
     switch (opt) {
-        case 1:
-            playAIvHuman();
-            break;
+        case 1: {
+            char debugMode;
+            std::string fileName;
 
-        case 2:
-            playAIvAI();
-            break;
+            std::cout << "File name: ";
+            fflush(stdin);
+            std::getline(std::cin, fileName);
+            std::cout << "Show debug info? (y/n): ";
+            std::cin >> debugMode;
 
-        case 3:
-            trainAI();
+            bm.AiVsHuman(fileName, debugMode == 'y');
             break;
+        }
 
-        default:
+        case 2: {
+            std::string ai1FileName, ai2FileName;
+
+            std::cout << "AI1 file name: ";
+            fflush(stdin);
+            std::getline(std::cin, ai1FileName);
+            std::cout << "AI2 file name: ";
+            fflush(stdin);
+            std::getline(std::cin, ai2FileName);
+
+            BoardManager bm = BoardManager();
+            bm.AiVsAi(ai1FileName, ai2FileName);
+            break;
+        }
+
+        case 3: {
+            int boardSize, winStr, trainIterations;
+
+            std::cout << "Board size: ";
+            std::cin >> boardSize;
+            std::cout << "Streak to win: ";
+            std::cin >> winStr;
+            std::cout << "Training iterations: ";
+            std::cin >> trainIterations;
+
+            bm.train(boardSize, winStr, trainIterations);
+            break;
+        }
+
+        default: {
             std::cout << "Option not valid.\n";
             exit(1);
+        }
     }
-}
-
-void trainAI() {
-    int boardSize, winStr, trainIterations;
-
-    std::cout << "Board size: ";
-    std::cin >> boardSize;
-    std::cout << "Streak to win: ";
-    std::cin >> winStr;
-    std::cout << "Training iterations: ";
-    std::cin >> trainIterations;
-
-    BoardManager bm = BoardManager();
-
-    bm.train(boardSize, winStr, trainIterations);
-}
-
-void playAIvHuman() {
-    char debugMode;
-    std::string fileName;
-    std::cout << "File name: ";
-    fflush(stdin);
-    std::getline(std::cin, fileName);
-    std::cout << "Show debug info? (y/n): ";
-    std::cin >> debugMode;
-
-
-    BoardManager bm = BoardManager();
-    bm.AiVsHuman(fileName, debugMode == 'y');
-}
-
-void playAIvAI() {
-    std::string ai1FileName, ai2FileName;
-    std::cout << "AI1 file name: ";
-    fflush(stdin);
-    std::getline(std::cin, ai1FileName);
-    std::cout << "AI2 file name: ";
-    fflush(stdin);
-    std::getline(std::cin, ai2FileName);
-
-    BoardManager bm = BoardManager();
-    bm.AiVsAi(ai1FileName, ai2FileName);
 }

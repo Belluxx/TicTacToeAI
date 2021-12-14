@@ -23,7 +23,7 @@ void BoardManager::train(int l, int winStr, int iterations) {
     pos action;
     int status;
     for (int game = 0; game < iterations; game++) {
-        if (game % 10000 == 0) printf("Iteration: %dk\n", game / 1000);
+        if (game % 100000 == 0) printf("Iteration: %dk\n", game / 1000);
         board.reset();
 
         do {
@@ -42,9 +42,9 @@ void BoardManager::train(int l, int winStr, int iterations) {
 
         if (status == 1) {
             ai1.feedReward(1.0);
-            ai2.feedReward(-0.3);
+            ai2.feedReward(-0.5);
         } else if (status == 2) {
-            ai1.feedReward(-0.3);
+            ai1.feedReward(-0.5);
             ai2.feedReward(1.0);
         } else if (status == 3) {
             ai1.feedReward(0.3);
