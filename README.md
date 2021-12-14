@@ -2,6 +2,10 @@
 
 A basic reinforcement learning ai with flexible tictactoe board size.
 
+## Brief example
+<img src="static/example4x4.gif" width="190" height="100"  alt="4x4"/>
+<img src="static/example3x3.gif" width="220" height="100"  alt="3x3"/>
+
 ## Building
 1) Clone the repository `git clone https://github.com/Belluxx/TicTacToeAI.git`
 2) Go into the repository `cd TicTacToeAI`
