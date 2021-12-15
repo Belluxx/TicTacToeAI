@@ -37,7 +37,6 @@ int main() {
             fflush(stdin);
             std::getline(std::cin, ai2FileName);
 
-            BoardManager bm = BoardManager();
             bm.AiVsAi(ai1FileName, ai2FileName);
             break;
         }
