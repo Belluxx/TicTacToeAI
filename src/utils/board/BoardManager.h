@@ -22,6 +22,8 @@ public:
     void makeBoard(int, int);
 
     void train(int, int, int);
+
+    void benchmarkAi(const std::string&);
 };
 
 

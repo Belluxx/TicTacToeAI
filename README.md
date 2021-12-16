@@ -1,6 +1,6 @@
 # TicTacToe AI
 
-A basic reinforcement learning ai with flexible tictactoe board size.
+A basic reinforcement learning AI with flexible tictactoe board size.
 
 ## 🎥 Brief example
 <img src="static/example4x4.gif" width="190" height="100"  alt="4x4"/>
@@ -18,9 +18,12 @@ A basic reinforcement learning ai with flexible tictactoe board size.
 First of all you need to choose an option:
 > [1] Load AI file to play against user\
 > [2] Load AI file to play against another AI\
-> [3] Train new AI
+> [3] Benchmark an AI file\
+> [4] Train new AI
 
-If it is the first time that you run this project then you can either [download a pre-trained AI file](https://github.com/Belluxx/TicTacToeAI/releases/download/v1.0/pretrained_ai_files.7z) and choose option 1/2 or train a new one with option 3.
+If it is the first time that you run this project then you can either [download a pre-trained AI file](https://github.com/Belluxx/TicTacToeAI/releases/download/v1.0/pretrained_ai_files.7z) and choose option 1/2 or train a new one with option 4.
+
+The option 3 is useful to check how strong your AI file is. It makes your AI play 100k games against a very weak agent that plays randomly and reports the result.
 
 To train a new AI you will be asked for some tweaks:
 1) **Board size**: the size of the tictactoe square; 3 means 3x3 square and 4 means 4x4 square.

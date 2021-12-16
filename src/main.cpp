@@ -6,7 +6,8 @@ int main() {
     int opt = 0;
     std::cout << "[1] Load AI file to play against user\n";
     std::cout << "[2] Load AI file to play against another AI\n";
-    std::cout << "[3] Train new AI\n";
+    std::cout << "[3] Benchmark an AI file\n";
+    std::cout << "[4] Train new AI\n";
     std::cout << "Choose an option: ";
     std::cin >> opt;
 
@@ -42,6 +43,17 @@ int main() {
         }
 
         case 3: {
+            std::string aiFileName;
+
+            std::cout << "AI file name: ";
+            fflush(stdin);
+            std::getline(std::cin, aiFileName);
+
+            bm.benchmarkAi(aiFileName);
+            break;
+        }
+
+        case 4: {
             int boardSize, winStr, trainIterations;
 
             std::cout << "Board size: ";

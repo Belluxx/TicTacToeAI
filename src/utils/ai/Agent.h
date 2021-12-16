@@ -34,6 +34,8 @@ public:
     void load(const std::string &fileName);
 
     pos chooseAction(bool = false, bool = false);
+
+    void setExplorationRate(float _expRate);
 };
 
 

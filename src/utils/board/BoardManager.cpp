@@ -2,6 +2,8 @@
 #include <thread>
 #include "BoardManager.h"
 
+#define BENCH_ITERS 100000
+
 BoardManager::BoardManager() = default;
 
 /**
@@ -169,6 +171,52 @@ void BoardManager::AiVsAi(const std::string &ai1File, const std::string &ai2File
         std::cout << "Watch again? (y/n): ";
         std::cin >> opt;
     } while (opt == 'y');
+}
+
+void BoardManager::benchmarkAi(const std::string &ai1File) {
+    makeBoard(ai1File);
+
+    Agent ai1 = Agent(&board);
+    Agent ai2 = Agent(&board);
+    ai1.load(ai1File);
+    ai2.setExplorationRate(1.0);
+
+    printf("\nAI Info:\n");
+    ai1.debug();
+    printf("\n");
+
+    if (ai1.tag == Board::X) ai2.tag = Board::O;
+    else ai2.tag = Board::X;
+
+    int status;
+    pos action;
+    int xw = 0, ow = 0, draws = 0;
+    for (int i = 0; i < BENCH_ITERS; i++) {
+        board.reset();
+        ai1.newGame();
+        ai2.newGame();
+
+        do {
+            if (board.turn == ai1.tag) action = ai1.chooseAction(true);
+            else action = ai2.chooseAction(false);
+            board.performAction(board.turn, action);
+
+            status = board.getGameStatus();
+        } while (status == 0);
+
+        if (status == 1) xw++;
+        else if (status == 2) ow++;
+        else if (status == 3) draws++;
+        else printf("\nAn error occurred\n");
+    }
+
+    if (ai1.tag == Board::X) printf("AI      [X] win rate: %.3f%%\n", (float) xw/BENCH_ITERS*100.0);
+    else printf("AI      [O] win rate: %.3f%%\n", (float) ow/BENCH_ITERS*100.0);
+    if (ai2.tag == Board::X) printf("Checker [X] win rate: %.3f%%\n", (float) xw/BENCH_ITERS*100.0);
+    else printf("Checker [O] win rate: %.3f%%\n", (float) ow/BENCH_ITERS*100.0);
+
+    if (ai1.tag == Board::X) printf("\nYour AI lost %d times.\n", ow);
+    else printf("\nYour AI lost %d times.\n", xw);
 }
 
 /**

@@ -177,4 +177,8 @@ void Agent::load(const std::string &fileName) {
     fclose(f);
 }
 
+void Agent::setExplorationRate(float _expRate) {
+    this->expRate = expRate;
+}
+
 Agent::~Agent() = default;
